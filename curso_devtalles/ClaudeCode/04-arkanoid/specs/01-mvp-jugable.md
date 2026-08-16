@@ -109,18 +109,18 @@ Convenciones:
 
 ## Acceptance criteria
 
-- [ ] Abrir `index.html` en el navegador no muestra errores en la consola.
-- [ ] Se ve una pantalla de inicio con instrucción para comenzar (tecla o click).
-- [ ] La paleta se mueve con flechas/A-D y con el mouse, sin salir del canvas.
-- [ ] La bola rebota en paredes y techo, y cambia de ángulo al rebotar en la paleta según el punto de impacto.
-- [ ] Al golpear un bloque, este desaparece, se reproduce la animación de explosión y el sonido `break-sound.mp3`.
-- [ ] El puntaje aumenta exactamente 10 puntos por cada bloque roto.
-- [ ] Cada vez que la bola cae por el borde inferior se resta una vida y se reproduce `ball-bounce.mp3` en los rebotes normales.
-- [ ] Al llegar a 0 vidas se muestra la pantalla de Game Over.
-- [ ] Al romper los 70 bloques se muestra la pantalla de Win.
-- [ ] Desde Game Over o Win, tecla/click reinicia la partida (vidas, puntaje y bloques restaurados) sin recargar la página.
-- [ ] El high score se guarda en `localStorage` bajo la clave `arkanoid-high-score` y persiste tras recargar la página.
-- [ ] El high score mostrado en el HUD solo se actualiza cuando el puntaje de la partida lo supera.
+- [x ] Abrir `index.html` en el navegador no muestra errores en la consola.
+- [x ] Se ve una pantalla de inicio con instrucción para comenzar (tecla o click).
+- [x ] La paleta se mueve con flechas/A-D y con el mouse, sin salir del canvas.
+- [x ] La bola rebota en paredes y techo, y cambia de ángulo al rebotar en la paleta según el punto de impacto.
+- [x ] Al golpear un bloque, este desaparece, se reproduce la animación de explosión y el sonido `break-sound.mp3`.
+- [x ] El puntaje aumenta exactamente 10 puntos por cada bloque roto.
+- [x ] Cada vez que la bola cae por el borde inferior se resta una vida y se reproduce `ball-bounce.mp3` en los rebotes normales.
+- [x ] Al llegar a 0 vidas se muestra la pantalla de Game Over.
+- [x ] Al romper los 70 bloques se muestra la pantalla de Win.
+- [x ] Desde Game Over o Win, tecla/click reinicia la partida (vidas, puntaje y bloques restaurados) sin recargar la página.
+- [x ] El high score se guarda en `localStorage` bajo la clave `arkanoid-high-score` y persiste tras recargar la página.
+- [x ] El high score mostrado en el HUD solo se actualiza cuando el puntaje de la partida lo supera.
 
 ---
 

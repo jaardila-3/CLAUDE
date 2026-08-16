@@ -4,9 +4,15 @@ Este archivo proporciona guía a Claude Code (claude.ai/code) al trabajar con c�
 
 ## Estado del proyecto
 
-Este es un juego de Arkanoid construido con HTML, CSS y JavaScript puro — sin dependencias, sin herramientas de build, sin `package.json`. Según el `README.md`, el juego jugable en sí **todavía no está implementado**; por ahora solo existen los assets (todavía no hay `index.html` ni JS con la lógica del juego).
+Este es un juego de Arkanoid construido con HTML, CSS y JavaScript puro — sin dependencias, sin herramientas de build, sin `package.json`. El MVP jugable está **implementado** (ver `specs/01-mvp-jugable.md`): `index.html` carga `assets/spritesheet.js` y luego `js/game.js`, con estilos en `css/style.css`.
 
-Como no hay sistema de build, no hay comandos de build/lint/test que ejecutar. Al ser un juego HTML/CSS/JS sin dependencias, debería ejecutarse abriendo el archivo HTML de entrada directamente en el navegador (o sirviendo el directorio con cualquier servidor estático) una vez que ese archivo de entrada exista.
+Como no hay sistema de build, no hay comandos de build/lint/test que ejecutar. El juego se ejecuta abriendo `index.html` directamente en el navegador (o sirviendo el directorio con cualquier servidor estático).
+
+## Especificaciones
+
+El directorio `specs/` contiene las specs de features en formato spec-driven (ver `specs/.spec-config.yml`). `specs/01-mvp-jugable.md` documenta el MVP actual: loop de juego completo, un nivel fijo de 70 bloques (7 colores x 10 columnas), física de la bola con ángulo variable en la paleta, sonido, animación de explosión, 3 vidas, puntaje, pantallas de Start/Game Over/Win con reinicio sin recargar, y high score persistido en `localStorage` (clave `arkanoid-high-score`). Fuera de alcance por ahora: múltiples niveles, power-ups, pausa, canvas responsive, historial de puntajes y multijugador — cada uno debe ir en su propia spec futura.
+
+Al modificar la lógica del juego en `js/game.js`, respeta las convenciones ya establecidas en `specs/01-mvp-jugable.md` (velocidades en px/frame, origen de coordenadas en la esquina superior izquierda, detección de colisión con el rectángulo de movimiento del frame para evitar túnel) salvo que una nueva spec las cambie explícitamente.
 
 ## Assets y sistema de sprites
 

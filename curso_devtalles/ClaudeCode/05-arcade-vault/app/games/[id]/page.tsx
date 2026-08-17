@@ -2,7 +2,7 @@ import { notFound } from "next/navigation";
 import Link from "next/link";
 import { GAMES, seededScores } from "@/lib/data";
 
-export default async function GameDetailPage({ params }: PageProps<"/biblioteca/[id]">) {
+export default async function GameDetailPage({ params }: PageProps<"/games/[id]">) {
   const { id } = await params;
   const game = GAMES.find((g) => g.id === id);
   if (!game) notFound();
@@ -46,7 +46,7 @@ export default async function GameDetailPage({ params }: PageProps<"/biblioteca/
             <Link href={`/jugar/${game.id}`} className="btn xl pulse">
               ▶ JUGAR AHORA
             </Link>
-            <Link href="/" className="btn ghost lg">
+            <Link href="/games" className="btn ghost lg">
               VOLVER AL VAULT
             </Link>
           </div>

@@ -56,7 +56,7 @@ export default function GamePlayerPage() {
           <button className="btn magenta" onClick={() => setOver(true)}>
             FIN
           </button>
-          <Link href={`/biblioteca/${game.id}`} className="btn ghost">
+          <Link href={`/games/${game.id}`} className="btn ghost">
             SALIR
           </Link>
         </div>
@@ -118,7 +118,7 @@ export default function GamePlayerPage() {
               <button className="btn" onClick={restart}>
                 JUGAR DE NUEVO
               </button>
-              <Link href="/" className="btn magenta">
+              <Link href="/games" className="btn magenta">
                 VOLVER AL VAULT
               </Link>
             </div>

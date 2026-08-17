@@ -1,10 +1,10 @@
 # 02 — Home (landing) en la raíz y Biblioteca movida a /games
 
-**Estado:** aprobado
+**Estado:** implementado
 **Depende de:** SPEC 01
 **Fecha:** 2026-08-17
 
-**Objetivo:** Implementar la pantalla Home (landing) de `references/templates/home-about/home.jsx` como la ruta `/`, mover la Biblioteca actual de `/` a `/games` (junto con su ruta de detalle `/games/[id]`), y agregar el link "Inicio" al Nav antes de "Biblioteca".
+**Objetivo:** Implementar la pantalla Home (landing) de `references/templates/home-about/home.jsx` como la ruta `/`, mover la Biblioteca actual de `/` a `/games` (junto con su ruta de detalle `/games/[id]`), y actualizar el link "Biblioteca" del Nav para que apunte a `/games`. El logo del Nav es la única forma de volver a `/` (Home); no se agrega un link "Inicio" al Nav.
 
 ## Alcance
 
@@ -13,7 +13,7 @@
 - Nueva pantalla Home en `/`: hero con siluetas SVG flotantes, sección "¿Por qué Arcade Vault?" (feature grid), sección "Juegos disponibles ahora" (mini-rail con `GAMES.slice(0, 6)`), sección de stats, sección "Actividad en vivo" (ticker de puntuaciones + top jugadores, datos mock hardcodeados como en el template), sección de precios ("Plan único" + FAQ) y CTA final — todo tal como aparece en `home.jsx`, incluyendo las animaciones de scroll-reveal (`IntersectionObserver` + clases `.reveal`/`.in`).
 - Biblioteca movida de `/` a `/games` (mismo contenido y comportamiento que hoy, solo cambia la ruta).
 - Detalle movido de `/biblioteca/[id]` a `/games/[id]` (mismo contenido y comportamiento, solo cambia la ruta).
-- Nav actualizado: nuevo link "Inicio" apuntando a `/`, insertado antes de "Biblioteca" (que ahora apunta a `/games`), tanto en el nav de escritorio como en el panel móvil. El logo sigue apuntando a `/`.
+- Nav actualizado: "Biblioteca" ahora apunta a `/games`, tanto en el nav de escritorio como en el panel móvil. No se agrega un link "Inicio"; el logo sigue apuntando a `/` y es la única forma de volver al Home desde el Nav.
 - Todos los enlaces internos que apuntaban a `/biblioteca/[id]` o usaban `/` como "volver a la biblioteca" actualizados a `/games` / `/games/[id]` (`GameCard`, botón "Volver al Vault" en Detalle y en el modal del Reproductor, botón "Salir" del Reproductor, submit de Auth y "Jugar como invitado").
 - Clases CSS del Home añadidas a `app/globals.css`, portadas desde `references/templates/home-about/styles.css` (bloques `HOME PAGE`, `ACTIVITY` y `PRICING`), sin modificar ni eliminar reglas existentes.
 
@@ -35,30 +35,28 @@ No se introduce ningún tipo ni estructura nueva. El Home reutiliza `GAMES` de `
 2. Crear `app/games/[id]/page.tsx` con el contenido actual de `app/biblioteca/[id]/page.tsx`, actualizando el tipo `PageProps<"/games/[id]">` y el link "Volver al Vault" para que apunte a `/games`. Eliminar la carpeta `app/biblioteca/`.
 3. Reescribir `app/page.tsx` como Client Component con la pantalla Home completa (hero, siluetas SVG, features, mini-rail, stats, actividad en vivo, precios/FAQ, CTA final), portada de `home.jsx`, con sub-componentes locales (`FloatingSilhouettes`, `MiniCard`, `FeatureIcon`) definidos en el mismo archivo. Los CTAs navegan con `next/link`/`useRouter` a: `/games` (Explorar juegos, Ver todos los juegos, Insertar moneda), `/auth` (Crear cuenta, Empezar gratis), `/salon` (Ver salón), `/games/[id]` (click en cada `MiniCard`). El scroll-reveal se implementa con `useEffect` + `IntersectionObserver` sobre los elementos `.reveal`, igual que en el template.
 4. Añadir a `app/globals.css` las reglas CSS de los bloques `HOME PAGE`, `ACTIVITY` y `PRICING` de `references/templates/home-about/styles.css` (incluyendo `@keyframes float` y las clases `.reveal` / `.reveal.in`), al final del archivo, sin tocar reglas existentes.
-5. Actualizar `components/nav.tsx`: agregar link "Inicio" (`href="/"`) antes de "Biblioteca" en el nav de escritorio y en el panel móvil; cambiar el `href` de "Biblioteca" a `/games`; actualizar `isActive` para que `"inicio"` esté activo solo cuando `pathname === "/"` y `"biblioteca"` esté activo en `/games`, `/games/[id]` y `/jugar/[id]`.
+5. Actualizar `components/nav.tsx`: cambiar el `href` de "Biblioteca" a `/games` en el nav de escritorio y en el panel móvil (sin agregar link "Inicio"); actualizar `isActive` para que `"biblioteca"` esté activo en `/games`, `/games/[id]` y `/jugar/[id]` (ya no en `/`). El logo sigue siendo el único elemento del Nav que apunta a `/`.
 6. Actualizar `components/game-card.tsx`: `goToDetail` navega a `/games/${game.id}` en vez de `/biblioteca/${game.id}`.
 7. Actualizar `app/jugar/[id]/page.tsx`: el botón "SALIR" enlaza a `/games/${game.id}`; el botón "VOLVER AL VAULT" del modal de fin de juego enlaza a `/games`.
 8. Actualizar `app/auth/page.tsx`: el submit del formulario y el botón "JUGAR COMO INVITADO" navegan a `/games` en vez de `/`.
-9. Smoke test manual con `next dev`: verificar que `/` muestra el Home completo con sus animaciones de scroll-reveal, que el Nav muestra "Inicio" antes de "Biblioteca" con el resaltado activo correcto en las 6 rutas (`/`, `/games`, `/games/[id]`, `/jugar/[id]`, `/salon`, `/auth`), que todos los CTAs del Home navegan a donde corresponde, que `/biblioteca/*` ya no existe, confirmar ausencia de errores/warnings en consola (incluyendo hidratación), y correr `tsc --noEmit` sin errores.
+9. Smoke test manual con `next dev`: verificar que `/` muestra el Home completo con sus animaciones de scroll-reveal, que el logo del Nav navega a `/` y que "Biblioteca" se resalta como activo correctamente en las 6 rutas (`/`, `/games`, `/games/[id]`, `/jugar/[id]`, `/salon`, `/auth`), que todos los CTAs del Home navegan a donde corresponde, que `/biblioteca/*` ya no existe, confirmar ausencia de errores/warnings en consola (incluyendo hidratación), y correr `tsc --noEmit` sin errores.
 
 ## Criterios de aceptación
 
-- [ ] `/` muestra la pantalla Home completa (hero, siluetas flotantes, features, mini-rail de juegos, stats, actividad en vivo, precios/FAQ, CTA final), reemplazando el contenido actual de la Biblioteca.
-- [ ] Las secciones marcadas `reveal` en el Home aparecen animadas al hacer scroll (clase `.in` añadida vía `IntersectionObserver`).
-- [ ] `/games` muestra la Biblioteca completa (hero + buscador + chips + grid), igual que antes en `/`.
-- [ ] `/games/[id]` muestra el Detalle del juego (mismo contenido que antes en `/biblioteca/[id]`); un `id` inexistente devuelve 404.
-- [ ] `/biblioteca` y `/biblioteca/[id]` ya no existen como rutas.
-- [ ] El Nav muestra "Inicio" antes de "Biblioteca", tanto en escritorio como en el menú móvil.
-- [ ] "Inicio" navega a `/` y se resalta como activo solo en `/`.
-- [ ] "Biblioteca" navega a `/games` y se resalta como activo en `/games`, `/games/[id]` y `/jugar/[id]`.
-- [ ] El logo del Nav navega a `/` (Home).
-- [ ] En el Home: "Explorar juegos", "Ver todos los juegos" e "Insertar moneda" navegan a `/games`; "Crear cuenta" y "Empezar gratis" navegan a `/auth`; "Ver salón" navega a `/salon`; cada `MiniCard` navega a `/games/[id]` correspondiente.
-- [ ] Las tarjetas de la Biblioteca (`GameCard`) enlazan a `/games/[id]`.
-- [ ] "Volver al Vault" (en Detalle y en el modal de fin de juego del Reproductor) navega a `/games`.
-- [ ] "Salir" en el Reproductor navega a `/games/[id]` del juego actual.
-- [ ] Enviar el formulario de Auth o pulsar "Jugar como invitado" navega a `/games`.
-- [ ] `tsc --noEmit` no reporta errores.
-- [ ] No hay errores ni warnings en la consola del navegador (incluyendo hidratación) al navegar por las 6 pantallas.
+- [ x] `/` muestra la pantalla Home completa (hero, siluetas flotantes, features, mini-rail de juegos, stats, actividad en vivo, precios/FAQ, CTA final), reemplazando el contenido actual de la Biblioteca.
+- [ x] Las secciones marcadas `reveal` en el Home aparecen animadas al hacer scroll (clase `.in` añadida vía `IntersectionObserver`).
+- [x ] `/games` muestra la Biblioteca completa (hero + buscador + chips + grid), igual que antes en `/`.
+- [x ] `/games/[id]` muestra el Detalle del juego (mismo contenido que antes en `/biblioteca/[id]`); un `id` inexistente devuelve 404.
+- [ x] `/biblioteca` y `/biblioteca/[id]` ya no existen como rutas.
+- [ x] "Biblioteca" navega a `/games` y se resalta como activo en `/games`, `/games/[id]` y `/jugar/[id]` (no en `/`).
+- [x ] El logo del Nav navega a `/` (Home) y es la única forma de volver al Home desde el Nav; no existe un link "Inicio".
+- [ x] En el Home: "Explorar juegos", "Ver todos los juegos" e "Insertar moneda" navegan a `/games`; "Crear cuenta" y "Empezar gratis" navegan a `/auth`; "Ver salón" navega a `/salon`; cada `MiniCard` navega a `/games/[id]` correspondiente.
+- [ x] Las tarjetas de la Biblioteca (`GameCard`) enlazan a `/games/[id]`.
+- [x ] "Volver al Vault" (en Detalle y en el modal de fin de juego del Reproductor) navega a `/games`.
+- [ x] "Salir" en el Reproductor navega a `/games/[id]` del juego actual.
+- [ x] Enviar el formulario de Auth o pulsar "Jugar como invitado" navega a `/games`.
+- [ x] `tsc --noEmit` no reporta errores.
+- [ x] No hay errores ni warnings en la consola del navegador (incluyendo hidratación) al navegar por las 6 pantallas.
 
 ## Decisiones tomadas y descartadas
 
@@ -69,6 +67,7 @@ No se introduce ningún tipo ni estructura nueva. El Home reutiliza `GAMES` de `
 - **Las clases CSS del Home se añaden a `app/globals.css`** (bloques `HOME PAGE`, `ACTIVITY` y `PRICING` del `styles.css` del template) — confirmado por el usuario. Es una adición pura (ninguna regla existente se modifica), por lo que no contradice la decisión de la spec 01 de no tocar el tema ya migrado.
 - **Los datos mock de "Actividad en vivo" y "Top jugadores" se mantienen hardcodeados dentro de `app/page.tsx`**, sin migrarlos a `lib/data.ts` — igual que en el template, ya que no se reutilizan en ninguna otra pantalla.
 - **Home es un Client Component** (usa `useState`/`useEffect` para el scroll-reveal), consistente con el resto de pantallas interactivas del proyecto.
+- **No se agrega un link "Inicio" al Nav** (revierte la versión original de esta spec, aprobada con ese link) — decisión explícita del usuario durante la implementación. El logo del Nav (que ya apuntaba a `/`) queda como la única forma de volver al Home; "Biblioteca" sigue siendo el único link del Nav hacia la sección de juegos, ahora apuntando a `/games`.
 
 ## Riesgos identificados
 

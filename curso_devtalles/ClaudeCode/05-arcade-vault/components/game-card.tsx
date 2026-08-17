@@ -23,7 +23,7 @@ export function GameCard({ game }: { game: Game }) {
     el.style.transform = "";
   };
 
-  const goToDetail = () => router.push(`/biblioteca/${game.id}`);
+  const goToDetail = () => router.push(`/games/${game.id}`);
 
   return (
     <div ref={tiltRef} className="card" onMouseMove={onMove} onMouseLeave={onLeave} onClick={goToDetail}>

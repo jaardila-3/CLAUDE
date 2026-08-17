@@ -1,6 +1,6 @@
 # 01 — Pantallas visuales MVP de Arcade Vault
 
-**Estado:** aprobado
+**Estado:** implementado
 **Depende de:** Ninguna
 **Fecha:** 2026-08-17
 
@@ -72,24 +72,24 @@ function seededScores(seed: number, count?: number): ScoreRow[]; // función pur
 
 ## Criterios de aceptación
 
-- [ ] `/` muestra la Biblioteca completa (hero + buscador + chips + grid) y reemplaza el placeholder actual.
-- [ ] El buscador filtra por título y los chips filtran por categoría en tiempo real, combinables entre sí.
-- [ ] Cada `GameCard` enlaza a `/biblioteca/[id]` correspondiente.
-- [ ] `/biblioteca/[id]` muestra la info del juego y un leaderboard con 10 filas generadas por `seededScores`.
-- [ ] `/biblioteca/[id]` con un `id` inexistente devuelve 404 (`notFound`).
-- [ ] "Jugar ahora" navega a `/jugar/[id]`; "Volver al Vault" navega a `/`.
-- [ ] `/jugar/[id]` muestra un HUD con valores fijos que no cambian solos (sin temporizador).
-- [ ] El botón Pausa muestra/oculta el overlay "EN PAUSA"; el botón Fin abre el modal de fin de juego.
-- [ ] El modal de fin de juego permite "Guardar puntuación" (solo visual) y "Jugar de nuevo" (resetea los toggles).
-- [ ] "Salir" navega de vuelta a `/biblioteca/[id]`.
-- [ ] `/salon` muestra tabs por juego, podio (top 3) y tabla de ranking que cambian al seleccionar otro juego.
-- [ ] `/auth` muestra tabs Iniciar sesión/Crear cuenta y el campo de correo solo aparece en el tab de registro.
-- [ ] Enviar el formulario de Auth o pulsar "Jugar como invitado" navega a `/`.
-- [ ] El Nav (logo, links, contador de créditos, botón "Iniciar Sesión") es visible y persistente en las 5 rutas, con el link activo resaltado correctamente.
-- [ ] El menú hamburguesa funciona en viewport móvil (< 840px).
-- [ ] Ningún flujo escribe en `localStorage` ni introduce un estado de "usuario logueado".
-- [ ] `tsc --noEmit` no reporta errores.
-- [ ] No hay errores ni warnings en la consola del navegador al navegar por las 5 pantallas.
+- [x ] `/` muestra la Biblioteca completa (hero + buscador + chips + grid) y reemplaza el placeholder actual.
+- [ x] El buscador filtra por título y los chips filtran por categoría en tiempo real, combinables entre sí.
+- [ x] Cada `GameCard` enlaza a `/biblioteca/[id]` correspondiente.
+- [ x] `/biblioteca/[id]` muestra la info del juego y un leaderboard con 10 filas generadas por `seededScores`.
+- [x ] `/biblioteca/[id]` con un `id` inexistente devuelve 404 (`notFound`).
+- [ x] "Jugar ahora" navega a `/jugar/[id]`; "Volver al Vault" navega a `/`.
+- [ x] `/jugar/[id]` muestra un HUD con valores fijos que no cambian solos (sin temporizador).
+- [ x] El botón Pausa muestra/oculta el overlay "EN PAUSA"; el botón Fin abre el modal de fin de juego.
+- [ x] El modal de fin de juego permite "Guardar puntuación" (solo visual) y "Jugar de nuevo" (resetea los toggles).
+- [ x] "Salir" navega de vuelta a `/biblioteca/[id]`.
+- [x ] `/salon` muestra tabs por juego, podio (top 3) y tabla de ranking que cambian al seleccionar otro juego.
+- [x ] `/auth` muestra tabs Iniciar sesión/Crear cuenta y el campo de correo solo aparece en el tab de registro.
+- [ x] Enviar el formulario de Auth o pulsar "Jugar como invitado" navega a `/`.
+- [ x] El Nav (logo, links, contador de créditos, botón "Iniciar Sesión") es visible y persistente en las 5 rutas, con el link activo resaltado correctamente.
+- [ x] El menú hamburguesa funciona en viewport móvil (< 840px).
+- [ x] Ningún flujo escribe en `localStorage` ni introduce un estado de "usuario logueado".
+- [ x] `tsc --noEmit` no reporta errores.
+- [ x] No hay errores ni warnings en la consola del navegador al navegar por las 5 pantallas.
 
 ## Decisiones tomadas y descartadas
 

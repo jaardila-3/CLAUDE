@@ -74,17 +74,17 @@ type ContactResult = { ok: true } | { ok: false; error: string };
 
 ## Criterios de aceptación
 
-- [ ] `/about` existe como ruta real y muestra el hero "Acerca de" (kicker, título, misión, 3 highlights) igual que `about.jsx`.
-- [ ] El separador animado y la sección de contacto aparecen con la animación `reveal`/`in` al hacer scroll.
-- [ ] El link "Acerca de" está visible en el Nav de escritorio y en el panel móvil, apunta a `/about`, y se resalta como activo solo en esa ruta.
-- [ ] Enviar el formulario con algún campo vacío dispara la animación `shake` y no invoca a Resend.
-- [ ] Enviar el formulario con todos los campos completos invoca `sendContactMessage`, que llama a la API de Resend con `from: onboarding@resend.dev`, `replyTo` igual al correo ingresado, y `to` igual a `CONTACT_TO_EMAIL`.
-- [ ] Con un envío exitoso, el formulario es reemplazado por el bloque `terminal-success` con el nombre ingresado; "ENVIAR OTRO MENSAJE" vuelve a mostrar el formulario vacío.
-- [ ] Con un envío fallido (por ejemplo, `RESEND_API_KEY` vacío o inválido), se muestra un mensaje de error inline y los datos del formulario permanecen intactos para reintentar.
-- [ ] Mientras la petición está en curso, el botón de envío muestra un estado de carga y queda deshabilitado.
-- [ ] `RESEND_API_KEY` y `CONTACT_TO_EMAIL` solo se leen en `app/about/actions.ts` (servidor); no aparecen en ningún bundle de cliente.
-- [ ] `tsc --noEmit` no reporta errores.
-- [ ] No hay errores ni warnings en la consola del navegador (incluyendo hidratación) al navegar a `/about` y usar el formulario.
+- [ x] `/about` existe como ruta real y muestra el hero "Acerca de" (kicker, título, misión, 3 highlights) igual que `about.jsx`.
+- [ x] El separador animado y la sección de contacto aparecen con la animación `reveal`/`in` al hacer scroll.
+- [ x] El link "Acerca de" está visible en el Nav de escritorio y en el panel móvil, apunta a `/about`, y se resalta como activo solo en esa ruta.
+- [ x] Enviar el formulario con algún campo vacío dispara la animación `shake` y no invoca a Resend.
+- [ x] Enviar el formulario con todos los campos completos invoca `sendContactMessage`, que llama a la API de Resend con `from: onboarding@resend.dev`, `replyTo` igual al correo ingresado, y `to` igual a `CONTACT_TO_EMAIL`.
+- [ x] Con un envío exitoso, el formulario es reemplazado por el bloque `terminal-success` con el nombre ingresado; "ENVIAR OTRO MENSAJE" vuelve a mostrar el formulario vacío.
+- [ x] Con un envío fallido (por ejemplo, `RESEND_API_KEY` vacío o inválido), se muestra un mensaje de error inline y los datos del formulario permanecen intactos para reintentar.
+- [ x] Mientras la petición está en curso, el botón de envío muestra un estado de carga y queda deshabilitado.
+- [ x] `RESEND_API_KEY` y `CONTACT_TO_EMAIL` solo se leen en `app/about/actions.ts` (servidor); no aparecen en ningún bundle de cliente.
+- [ x] `tsc --noEmit` no reporta errores.
+- [ x] No hay errores ni warnings en la consola del navegador (incluyendo hidratación) al navegar a `/about` y usar el formulario.
 
 ## Decisiones tomadas y descartadas
 

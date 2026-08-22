@@ -1,6 +1,6 @@
 # 03 — Página "Acerca de" con formulario de contacto vía Resend
 
-**Estado:** Approved
+**Estado:** implementado
 **Depende de:** SPEC 02
 **Fecha:** 2026-08-18
 
